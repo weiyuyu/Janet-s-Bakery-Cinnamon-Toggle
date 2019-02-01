@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Toggle Cinnamon Roll </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+  </head>
+  <body>
+    <section class="hero is-info is-bold is-fullheight">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Janet's Bakery <br> Cinnamon Roll Availability
+          </h1>
+          <h2 id="currentStatus" class="subtitle">
+            Current Status: Disabled
+          </h2>
+          <a id="toggleButton" class="button is-outlined"> Toggle </a>
+        </div>
+      </div>
+    </section>
+  </body>
+
+  <script type="text/javascript">
+  fetch('https://janetsbakeryapi.herokuapp.com/')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(myJson) {
+      let status = myJson.cinnamonEnabled;
+      if(status == false) {
+        document.getElementById('currentStatus').innerHTML = "Current Status: Disabled";
+      } else {
+        document.getElementById('currentStatus').innerHTML = "Current Status: Enabled";
+      }
+    });
+  </script>
+
+  <script type="text/javascript">
+    document.getElementById('toggleButton').onclick = function() {
+      fetch('https://janetsbakeryapi.herokuapp.com/togglecinnamon', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({"toggle": true})
+      })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+        });
+    }
+  </script>
+</html>
