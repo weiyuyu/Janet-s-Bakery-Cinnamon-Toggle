@@ -51,6 +51,12 @@
         })
         .then(function(myJson) {
           console.log(myJson);
+          let text = document.getElementById('currentStatus').innerHTML;
+          if(text == "Current Status: Disabled") {
+            document.getElementById('currentStatus').innerHTML = "Current Status: Enabled";
+          } else {
+            document.getElementById('currentStatus').innerHTML = "Current Status: Disabled";
+          }
         });
     }
   </script>
