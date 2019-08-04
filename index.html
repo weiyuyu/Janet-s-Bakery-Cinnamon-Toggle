@@ -12,10 +12,28 @@
           <h1 class="title">
             Janet's Bakery <br> Cinnamon Roll Availability
           </h1>
-          <h2 id="currentStatus" class="subtitle">
+          <h2 id="cinnamonStatus" class="subtitle">
             Current Status: Disabled
           </h2>
-          <a id="toggleButton" class="button is-outlined"> Toggle </a>
+          <a id="cinnamonToggleButton" class="button is-outlined"> Toggle </a>
+        </div>
+        <div class="container">
+          <h1 class="title">
+            Janet's Bakery <br> Standard Scone Availability
+          </h1>
+          <h2 id="standardSconeStatus" class="subtitle">
+            Current Status: Enabled
+          </h2>
+          <a id="standardSconeToggleButton" class="button is-outlined"> Toggle </a>
+        </div>
+        <div class="container">
+          <h1 class="title">
+            Janet's Bakery <br> Devon Cream Availability
+          </h1>
+          <h2 id="devonStatus" class="subtitle">
+            Current Status: Enabled
+          </h2>
+          <a id="devonToggleButton" class="button is-outlined"> Toggle </a>
         </div>
       </div>
     </section>
@@ -27,17 +45,29 @@
       return response.json();
     })
     .then(function(myJson) {
-      let status = myJson.cinnamonEnabled;
-      if(status == false) {
-        document.getElementById('currentStatus').innerHTML = "Current Status: Disabled";
+      let cinnamonStatus = myJson.cinnamonEnabled;
+      let standardSconeStatus = myJson.standardSconeStatus;
+      let devonStatus = myJson.devonStatus;
+      if(cinnamonStatus == false) {
+        document.getElementById('cinnamonStatus').innerHTML = "Current Status: Disabled";
       } else {
-        document.getElementById('currentStatus').innerHTML = "Current Status: Enabled";
+        document.getElementById('cinnamonStatus').innerHTML = "Current Status: Enabled";
+      }
+      if(standardSconeStatus == false) {
+        document.getElementById('standardSconeStatus').innerHTML = "Current Status: Disabled";
+      } else {
+        document.getElementById('standardSconeStatus').innerHTML = "Current Status: Enabled";
+      }
+      if(devonStatus == false) {
+        document.getElementById('devonStatus').innerHTML = "Current Status: Disabled";
+      } else {
+        document.getElementById('devonStatus').innerHTML = "Current Status: Enabled";
       }
     });
   </script>
 
   <script type="text/javascript">
-    document.getElementById('toggleButton').onclick = function() {
+    document.getElementById('cinnamonToggleButton').onclick = function() {
       fetch('https://janetsbakeryapi.herokuapp.com/togglecinnamon', {
         headers: {
           'Accept': 'application/json',
@@ -51,13 +81,63 @@
         })
         .then(function(myJson) {
           console.log(myJson);
-          let text = document.getElementById('currentStatus').innerHTML;
+          let text = document.getElementById('cinnamonStatus').innerHTML;
           if(text == "Current Status: Disabled") {
-            document.getElementById('currentStatus').innerHTML = "Current Status: Enabled";
+            document.getElementById('cinnamonStatus').innerHTML = "Current Status: Enabled";
           } else {
-            document.getElementById('currentStatus').innerHTML = "Current Status: Disabled";
+            document.getElementById('cinnamonStatus').innerHTML = "Current Status: Disabled";
           }
         });
     }
   </script>
+
+<script type="text/javascript">
+  document.getElementById('standardSconeToggleButton').onclick = function() {
+    fetch('https://janetsbakeryapi.herokuapp.com/togglestandardscone', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"toggle": true})
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        console.log(myJson);
+        let text = document.getElementById('standardSconeStatus').innerHTML;
+        if(text == "Current Status: Disabled") {
+          document.getElementById('standardSconeStatus').innerHTML = "Current Status: Enabled";
+        } else {
+          document.getElementById('standardSconeStatus').innerHTML = "Current Status: Disabled";
+        }
+      });
+  }
+</script>
+
+<script type="text/javascript">
+  document.getElementById('devonToggleButton').onclick = function() {
+    fetch('https://janetsbakeryapi.herokuapp.com/toggledevon', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({"toggle": true})
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        console.log(myJson);
+        let text = document.getElementById('devonStatus').innerHTML;
+        if(text == "Current Status: Disabled") {
+          document.getElementById('devonStatus').innerHTML = "Current Status: Enabled";
+        } else {
+          document.getElementById('devonStatus').innerHTML = "Current Status: Disabled";
+        }
+      });
+  }
+</script>
 </html>
