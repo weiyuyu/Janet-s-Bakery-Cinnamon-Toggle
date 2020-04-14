@@ -45,6 +45,7 @@
       return response.json();
     })
     .then(function(myJson) {
+      console.log(myJson);
       let cinnamonStatus = myJson.cinnamonEnabled;
       let standardSconeStatus = myJson.standardSconeStatus;
       let devonStatus = myJson.devonStatus;
