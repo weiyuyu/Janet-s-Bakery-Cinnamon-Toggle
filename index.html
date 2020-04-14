@@ -47,8 +47,8 @@
     .then(function(myJson) {
       console.log(myJson);
       let cinnamonStatus = myJson.cinnamonEnabled;
-      let standardSconeStatus = myJson.standardSconeStatus;
-      let devonStatus = myJson.devonStatus;
+      let standardSconeStatus = myJson.standardSconeEnabled;
+      let devonStatus = myJson.devonEnabled;
       if(cinnamonStatus == false) {
         document.getElementById('cinnamonStatus').innerHTML = "Current Status: Disabled";
       } else {
